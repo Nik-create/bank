@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container  w-50 mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <div class="col d-flex align-items-center">Update</div>
+        </div>
+        <div class="card-header">
+
+
+            <form th:action="@{/users/update}" method="put">
+
+                <div th:object="${user}">
+                    <div class="mb-3">
+                        <input class="form-control" name="id" type="text"
+                               th:field="*{id}" th:value="*{id}" hidden="hidden">
+
+                        <label for="firstName">FirstName</label>
+                        <input class="form-control" id="firstName" name="firstName" type="text"
+                               th:field="*{firstName}" th:value="*{firstName}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName">LastName</label>
+                        <input class="form-control" id="lastName" name="lastName" type="text"
+                               th:field="*{lastName}" th:value="*{lastName}">
+                    </div>
+                    <div th:field="*{user.id}" th:value="*{user.id}"></div>
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input class="form-control" id="email" name="email" type="text"
+                               th:field="*{user.email}" th:value="*{user.email}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password">Password</label>
+                        <input class="form-control" id="password" name="password" type="text"
+                               th:field="*{user.password}" th:value="*{user.password}">
+                    </div>
+
+
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

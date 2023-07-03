@@ -6,24 +6,20 @@ import com.dtos.full_info.UserFullInfoDto;
 import com.dtos.post.UserPostDto;
 import com.repositories.UserRepository;
 import com.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Resource
-    private UserRepository repo;
-    @Resource
-    private BusinessMapper bm;
-
+    private final UserRepository repo;
+    private final BusinessMapper bm;
     private final PasswordEncoder encoder;
-
-    public UserServiceImpl(PasswordEncoder encoder) {
-        this.encoder = encoder;
-    }
 
     @Override
     public void save(UserPostDto dto) {
@@ -64,5 +60,15 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String email) {
         Optional<User> optional = repo.findAll().stream().filter(user -> user.getEmail().equals(email)).findFirst();
         return optional.orElse(null);
+    }
+
+    @Override
+    public List<UserFullInfoDto> findAll() {
+        List<User> all = repo.findAll();
+        List<UserFullInfoDto> dtos = new ArrayList<>();
+        for(User u: all){
+            dtos.add(bm.UserToUserFullInfo(u));
+        }
+        return dtos;
     }
 }

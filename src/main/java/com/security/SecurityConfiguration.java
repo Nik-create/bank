@@ -1,5 +1,6 @@
 package com.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,17 +18,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService service;
-
-    public SecurityConfiguration(UserDetailsService service) {
-        this.service = service;
-    }
+    @Autowired
+    @Qualifier("userDetailsServiceImpl")
+    private UserDetailsService service;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/orders/all").hasAuthority("USER")
-                .antMatchers("/login-form", "/users/form-create").permitAll()
+                .antMatchers("/users/all").hasAuthority("ADMIN")
+                .antMatchers("/login-form", "/users/form-create", "/users/create").permitAll()
                 .anyRequest().hasAnyAuthority("USER", "ADMIN")
                 .and()
                 .formLogin()

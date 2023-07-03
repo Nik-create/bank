@@ -8,17 +8,21 @@
                 <li sec:authorize="isAuthenticated()">
                     <a th:href="@{/}">Home Page</a></li>
                 <li th:if="${#authorization.expression('hasAuthority(''USER'')')}">
-                    <a th:href="@{/orders/create}">Create an Order</a></li>
+                    <a th:href="@{/orders/form-order}">Create an Order</a></li>
                 <li th:if="${#authorization.expression('hasAuthority(''USER'')')}">
                     <a th:href="@{/orders/myOrders}">My Orders</a></li>
                 <li th:if="${#authorization.expression('hasAuthority(''USER'')')}">
-                    <a th:href="@{/agreements/trader}">My Agreements</a></li>
+                    <a th:href="@{/agreements/myAgreements}">My Agreements</a></li>
                 <li th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
                     <a th:href="@{/orders/all}">All Orders</a></li>
+                <li th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+                    <a th:href="@{/users/all}">All Users</a></li>
+                <li th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+                    <a th:href="@{/trade-session/info}">Trade-session</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li sec:authorize="isAuthenticated()"><p class="navbar-text">Hello <span
-                        sec:authentication="principal.username"></span>!</p></li>
+                <li sec:authorize="isAuthenticated()"><p class="navbar-text">Hello <a th:href="@{/users/details}"><span
+                        sec:authentication="principal.username"></span></a>!</p></li>
                 <li sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" th:method="POST">
                         <button type="submit" class="btn btn-default navbar-btn">LogOut</button>

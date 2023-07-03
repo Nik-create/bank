@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Create Order</title>
+</head>
+<body>
+
+<div th:replace="header"></div>
+<div class="col-md-offset-2">
+    <h2>Order Form</h2>
+</div>
+<form class="form-horizontal" th:action="@{/orders/create}" th:object="${order}" method="post">
+
+    <div class="form-group">
+         <label class="col-sm-2 control-label" for="orderType">Order Type:</label>
+         <div class="col-sm-8">
+             <select class="form-control" name="orderType" id="orderType">
+                <option th:each="orderType : ${orderTypes}" th:value="${orderType}" th:text="${orderType.name()}"></option>
+             </select>
+         </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="instr">Instrument:</label>
+        <div class="col-sm-8">
+            <select class="form-control" name="instr" id="instr">
+                <option th:each="instr : ${instruments}" th:value="${instr}" th:text="${instr.name()}"></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="price">Your bid price:</label>
+        <div class="col-sm-8">
+            <input type="number" placeholder="0.0" step="0.1" class="form-control" th:field="*{price}" id="price" required
+                   autofocus/>
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('price')}"
+                   th:errors="*{price}"></small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="quantity">Quantity :</label>
+        <div class="col-sm-8">
+            <input type="number" placeholder="0.0" step="0.1" class="form-control" th:field="*{quantity}" id="quantity"
+                   required
+                   autofocus/>
+            <small class="form-text text-muted" th:if="${#fields.hasErrors('quantity')}"
+                   th:errors="*{quantity}"></small>
+        </div>
+    </div>
+
+    <div class="col-md-offset-2">
+        <input type="submit" class="btn btn-info" value="Save"/>
+        <input type="reset" class="btn btn" value="Clear"/>
+    </div>
+</form>
+</body>
+</html>

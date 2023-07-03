@@ -46,7 +46,7 @@ public class BusinessMapper {
     //Order
     public Order OrderPostDtoToOrder(OrderPostDto dto){
         return new Order(0, StatusOrder.ACTIVE, dto.getOrderType(), dto.getPrice(), LocalDate.now(),
-                dto.getInstrument(), null, UserFromUserFullInfo(dto.getTraderId()));
+                dto.getInstr(), dto.getQuantity(), UserFromUserFullInfo(dto.getTrader()));
     }
 
     public Order OrderFullInfoDtoToOrder(OrderFullInfoDto dto){
@@ -58,7 +58,7 @@ public class BusinessMapper {
     public OrderFullInfoDto OrderToOrderFullDto(Order order){
         return new OrderFullInfoDto(order.getId(), order.getOrderStatus(), order.getOrderType(), order.getPrice(),
                 order.getDateCreate(), order.getInstrument(), order.getQuantity(),
-                UserToUserFullInfo(order.getTraderId()));
+                UserToUserFullInfo(order.getTrader()));
     }
 
     //Account

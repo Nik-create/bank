@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 public class OrderPostDto {
     private TypeOrder orderType;
     private BigDecimal price;
-    private Instrument instrument;
-    private UserFullInfoDto traderId;
+    private Instrument instr;
+    private Double quantity;
+    private UserFullInfoDto trader;
 }

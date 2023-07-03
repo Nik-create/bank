@@ -25,7 +25,7 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
-    @OneToMany(mappedBy = "traderId")
+    @OneToMany(mappedBy = "trader")
     private List<Order> orders;
     @OneToMany(mappedBy = "seller")
     private List<Agreement> selled;

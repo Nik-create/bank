@@ -33,5 +33,5 @@ public class Order {
     private Double quantity;
     @ManyToOne
     @JoinColumn(name = "trader")
-    private User traderId;
+    private User trader;
 }

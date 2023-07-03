@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="navbar navbar-default" xmlns:th="http://www.thymeleaf.org">>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Your Agreements</title>
+</head>
+<body>
+<div th:replace="header"></div>
+<div class="container  w-50 mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <div class="row">
+                <div class="col d-flex align-items-center">Agreement</div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Instrument</th>
+                    <th scope="col">Buyer</th>
+                    <th scope="col">Seller</th>
+                    <th scope="col">Date</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="agr: ${agreements}">
+                    <th scope="row"><span th:text="${agr.instrument}"></span></th>
+                    <td><span th:text="${agr.buyer}"></span></td>
+                    <td><span th:text="${agr.seller}"></span></td>
+                    <td><span th:text="${agr.dateAgreement}"></span></td>
+                    <td><a th:href="@{/agreements/deleteAgr/{id}(id=${agr.id})}" type="button"
+                           class="btn btn-warning">delete</a></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

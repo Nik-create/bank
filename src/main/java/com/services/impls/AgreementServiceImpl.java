@@ -10,6 +10,8 @@ import com.services.AgreementService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AgreementServiceImpl implements AgreementService {
@@ -43,5 +45,15 @@ public class AgreementServiceImpl implements AgreementService {
     @Override
     public void deleteById(int id) {
         repo.deleteById(id);
+    }
+
+    @Override
+    public List<AgreementFullInfoDto> findAllBySellerEmail(String email) {
+        List<Agreement> agreements = repo.findAllBySellerEmail(email);
+        List<AgreementFullInfoDto> dtos = new ArrayList<>();
+        for(Agreement a: agreements){
+            dtos.add(bm.AgreementToAgreementFullDto(a));
+        }
+        return dtos;
     }
 }

@@ -9,6 +9,8 @@ import com.services.OrderService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -18,8 +20,8 @@ public class OrderServiceImpl implements OrderService {
     private BusinessMapper bm;
 
     @Override
-    public void save(OrderPostDto dto) {
-        repo.save(bm.OrderPostDtoToOrder(dto));
+    public Order save(OrderPostDto dto) {
+        return repo.save(bm.OrderPostDtoToOrder(dto));
     }
 
     @Override
@@ -32,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderType(dto.getOrderType());
         order.setPrice(dto.getPrice());
         order.setQuantity(dto.getQuantity());
-        order.setTraderId(bm.UserFromUserFullInfo(dto.getTraderId()));
+        order.setTrader(bm.UserFromUserFullInfo(dto.getTraderId()));
 
         repo.save(order);
     }
@@ -45,5 +47,27 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteById(int id) {
         repo.deleteById(id);
+    }
+
+    @Override
+    public List<OrderFullInfoDto> findAll() {
+        List<Order> all = repo.findAll();
+        List<OrderFullInfoDto> dtos = new ArrayList<>();
+
+        for(Order r : all){
+           dtos.add(bm.OrderToOrderFullDto(r));
+        }
+
+        return dtos;
+    }
+
+    @Override
+    public List<OrderFullInfoDto> findAllByTraderEmail(String email) {
+        List<Order> orders = repo.findAllByTraderEmail(email);
+        List<OrderFullInfoDto> dtos = new ArrayList<>();
+        for(Order r: orders) {
+            dtos.add(bm.OrderToOrderFullDto(r));
+        }
+        return dtos;
     }
 }

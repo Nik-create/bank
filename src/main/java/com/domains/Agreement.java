@@ -27,4 +27,8 @@ public class Agreement {
     @JoinColumn(name = "buyer")
     private User buyer;
     private LocalDate dateAgreement;
+
+    public static Agreement createAgreement(Order sell, Order buy){
+        return new Agreement(null, sell.getInstrument(), sell.getTrader(), buy.getTrader(), LocalDate.now());
+    }
 }
